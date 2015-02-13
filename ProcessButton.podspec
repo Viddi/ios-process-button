@@ -8,4 +8,5 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/Viddi/ios-process-button.git', :tag => 'v0.0.1' }
   spec.source_files     = 'ProcessButton/ProcessButton/*'
   spec.platform         = :ios, '8.0'
+  spec.requires_arc     = true
 end
