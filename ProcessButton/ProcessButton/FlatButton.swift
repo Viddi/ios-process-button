@@ -20,8 +20,6 @@ class FlatButton: UIButton {
     static let Error = UIColor(red: 255 / 255.0, green: 68 / 255.0, blue: 68 / 255.0, alpha: 1.0)
   }
 
-  var tempBackground: UIColor?
-  var tempText: String?
   var delegate: FlatButtonDelegate?
 
   override init(frame: CGRect) {
@@ -41,73 +39,59 @@ class FlatButton: UIButton {
     setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
     setTitleColor(UIColor.whiteColor(), forState: UIControlState.Disabled)
   }
-
-  func showSuccess(text: String, seconds: Double) {
+  
+  private func showSuccess(text: String, seconds: Double) {
     delegate?.showSuccess()
     enabled = false
 
-    tempBackground = backgroundColor
+    var tempBackground = backgroundColor
     backgroundColor = Colors.Success
-    tempText = titleLabel?.text
+    var tempText = titleLabel?.text
     setTitle(text, forState: UIControlState.Normal)
 
     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
     dispatch_after(delayTime, dispatch_get_main_queue()) {
-      self.backgroundColor = self.tempBackground
-      self.setTitle(self.tempText, forState: UIControlState.Normal)
+      self.backgroundColor = tempBackground
+      self.setTitle(tempText, forState: UIControlState.Normal)
       self.enabled = true
     }
   }
-
-  func showSuccess(text: String) {
-    delegate?.showSuccess()
-    enabled = false
-
-    tempBackground = backgroundColor
-    backgroundColor = Colors.Success
-    tempText = titleLabel?.text
-    setTitle(text, forState: UIControlState.Normal)
-
-    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(ProcessButton.Length.Short * Double(NSEC_PER_SEC)))
-    dispatch_after(delayTime, dispatch_get_main_queue()) {
-      self.backgroundColor = self.tempBackground
-      self.setTitle(self.tempText, forState: UIControlState.Normal)
-      self.enabled = true
-    }
-  }
-
-  func showError(text: String, seconds: Double) {
+  
+  private func showError(text: String, seconds: Double) {
     delegate?.showError()
     enabled = false
 
-    tempBackground = backgroundColor
+    var tempBackground = backgroundColor
     backgroundColor = Colors.Error
-    tempText = titleLabel?.text
+    var tempText = titleLabel?.text
     setTitle(text, forState: UIControlState.Normal)
 
     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
     dispatch_after(delayTime, dispatch_get_main_queue()) {
-      self.backgroundColor = self.tempBackground
-      self.setTitle(self.tempText, forState: UIControlState.Normal)
+      self.backgroundColor = tempBackground
+      self.setTitle(tempText, forState: UIControlState.Normal)
       self.enabled = true
     }
   }
-
-  func showError(text: String) {
-    delegate?.showError()
-    enabled = false
-
-    tempBackground = backgroundColor
-    backgroundColor = Colors.Error
-    tempText = titleLabel?.text
-    setTitle(text, forState: UIControlState.Normal)
-
-    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(ProcessButton.Length.Short * Double(NSEC_PER_SEC)))
-    dispatch_after(delayTime, dispatch_get_main_queue()) {
-      self.backgroundColor = self.tempBackground
-      self.setTitle(self.tempText, forState: UIControlState.Normal)
-      self.enabled = true
-    }
+  
+  func setBackgroundColor(normalState: UIColor, highlightedState: UIColor) {
+    backgroundColor = normalState
+    setBackgroundImage(ProcessButtonUtil.imageWithColor(highlightedState), forState: UIControlState.Highlighted)
   }
 
+  func showSuccessText(text: String, seconds: Double) {
+    showSuccess(text, seconds: seconds)
+  }
+
+  func showSuccessText(text: String) {
+    showSuccess(text, seconds: ProcessButtonUtil.Length.Short)
+  }
+
+  func showErrorText(text: String, seconds: Double) {
+    showError(text, seconds: seconds)
+  }
+
+  func showErrorText(text: String) {
+    showError(text, seconds: ProcessButtonUtil.Length.Long)
+  }
 }

@@ -20,8 +20,7 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    btnSignIn.backgroundColor = Colors.PurpleDefault
-    btnSignIn.setBackgroundImage(Util.imageWithColor(Colors.PurplePressed), forState: UIControlState.Highlighted)
+    btnSignIn.setBackgroundColor(Colors.PurpleDefault, highlightedState: Colors.PurplePressed)
   }
 
   @IBAction func signIn(sender: AnyObject) {
@@ -30,9 +29,9 @@ class ViewController: UIViewController {
     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Util.randomProcessTime() * Double(NSEC_PER_SEC)))
     dispatch_after(delayTime, dispatch_get_main_queue()) {
       if Util.randomResponse() {
-        self.btnSignIn.showSuccess("Success", seconds: ProcessButton.Length.Short)
+        self.btnSignIn.showSuccessText("Success", seconds: ProcessButtonUtil.Length.Short)
       } else {
-        self.btnSignIn.showError("Error", seconds: ProcessButton.Length.Long)
+        self.btnSignIn.showErrorText("Error", seconds: ProcessButtonUtil.Length.Long)
       }
     }
   }

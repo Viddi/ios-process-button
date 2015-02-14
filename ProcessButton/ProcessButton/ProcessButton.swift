@@ -10,11 +10,6 @@ import UIKit
 
 class ProcessButton: FlatButton, FlatButtonDelegate {
 
-  enum Length {
-    static let Short: Double = 1.5
-    static let Long: Double = 3.0
-  }
-
   var processView: ProcessView!
 
   override init(frame: CGRect) {
