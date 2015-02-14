@@ -22,7 +22,7 @@ class ProcessButtonUtil {
   
     :returns: UIImage with the color as its image
   */
-  class func imageWithColor(color: UIColor) -> UIImage {
+  internal class func imageWithColor(color: UIColor) -> UIImage {
     var rect: CGRect = CGRectMake(0.0, 0.0, 1.0, 1.0)
     UIGraphicsBeginImageContext(rect.size)
     var context: CGContextRef = UIGraphicsGetCurrentContext()
