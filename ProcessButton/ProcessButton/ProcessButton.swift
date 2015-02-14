@@ -9,6 +9,8 @@
 import UIKit
 
 class ProcessButton: FlatButton, FlatButtonDelegate {
+  
+  let LineHeight: CGFloat = 5.0
 
   var processView: ProcessView!
 
@@ -24,12 +26,12 @@ class ProcessButton: FlatButton, FlatButtonDelegate {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    processView.frame = CGRect(x: 0, y: frame.height - frame.height/20, width: frame.width, height: frame.height/20)
+    processView.frame = CGRect(x: 0, y: frame.height - LineHeight, width: frame.width, height: LineHeight)
   }
 
   private func prepareView() {
     delegate = self
-    processView = ProcessView(frame: CGRect(x: 0, y: frame.height - frame.height/20, width: frame.width, height: frame.height/20))
+    processView = ProcessView(frame: CGRect(x: 0, y: frame.height - LineHeight, width: frame.width, height: LineHeight))
     addSubview(processView)
   }
 

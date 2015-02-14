@@ -17,16 +17,12 @@ class ProcessView: UIView {
     static let LoadingRed = UIColor(red: 255 / 255.0, green: 68 / 255.0, blue: 68 / 255.0, alpha: 1.0)
   }
 
-  private let duration: NSTimeInterval = 0.5
+  private let Duration: NSTimeInterval = 0.5
 
   private var isAnimating: Bool = true
   private var colors: [UIColor] = [Colors.LoadingBlue, Colors.LoadingGreen, Colors.LoadingOrange, Colors.LoadingRed]
   private var views: [UIView]!
   private var lines: [UIView]!
-
-  func animate(shouldAnimate: Bool) {
-    shouldAnimate ? startAnimating() : stopAnimating()
-  }
 
   private func startAnimating() {
     isAnimating = true
@@ -47,13 +43,13 @@ class ProcessView: UIView {
 
         var next = false
         dispatch_async(dispatch_get_main_queue(), {
-          UIView.animateWithDuration(self.duration, delay: 0, options: nil, animations: { () -> Void in
+          UIView.animateWithDuration(self.Duration, delay: 0, options: nil, animations: { () -> Void in
             if self.isAnimating {
               self.addSubview(self.views[count])
               self.views[count].frame.origin = CGPoint(x: self.bounds.origin.x, y: 0)
               self.views[count].frame.size.width = self.frame.width
             }
-            }, completion: { (Bool) -> Void in
+          }, completion: { (Bool) -> Void in
               if self.isAnimating {
                 var lastIndex = count - 1
                 if lastIndex < 0 {
@@ -88,4 +84,8 @@ class ProcessView: UIView {
     return CGRect(x: bounds.width/2, y: bounds.origin.y, width: 0, height: frame.height)
   }
 
+  func animate(shouldAnimate: Bool) {
+    shouldAnimate ? startAnimating() : stopAnimating()
+  }
+  
 }
