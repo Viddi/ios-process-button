@@ -25,7 +25,7 @@ if callbackSuccess {
 }
 ```
 
-**Optional** To change the colors of the lines and the duration
+**Optional** To change the colors of the lines and the duration, put this in your AppDelegate `didFinishLaunchingWithOptions`
 
 ```
 // App wide customization
@@ -49,4 +49,4 @@ Vidar Ottosson, viddi@nplexity.com
 
 ## License
 
-ProcessButton is available under the MIT license. See the LICENSE file for more info.
+ProcessButton is available under the MIT license. See the [LICENSE](https://github.com/Viddi/ios-process-button/blob/master/LICENSE) file for more info.
