@@ -16,13 +16,35 @@ class ProcessView: UIView {
     static let LoadingOrange = UIColor(red: 255.0 / 255.0, green: 187 / 255.0, blue: 51 / 255.0, alpha: 1.0)
     static let LoadingRed = UIColor(red: 255 / 255.0, green: 68 / 255.0, blue: 68 / 255.0, alpha: 1.0)
   }
+  
+  private let DefaultColors = [Colors.LoadingBlue, Colors.LoadingGreen, Colors.LoadingOrange, Colors.LoadingRed]
+  private let DefaultDuration = 0.5
 
-  private let Duration: NSTimeInterval = 0.5
-
+  private var duration: NSTimeInterval!
+  private var colors: [UIColor]!
   private var isAnimating: Bool = true
-  private var colors: [UIColor] = [Colors.LoadingBlue, Colors.LoadingGreen, Colors.LoadingOrange, Colors.LoadingRed]
   private var views: [UIView]!
   private var lines: [UIView]!
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    if let customColors = ProcessButtonUtil.sharedInstance.colors {
+      colors = customColors
+    } else {
+      colors  = DefaultColors
+    }
+    
+    if let customDuration = ProcessButtonUtil.sharedInstance.duration {
+      duration = customDuration
+    } else {
+      duration = DefaultDuration
+    }
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 
   private func startAnimating() {
     isAnimating = true
@@ -43,7 +65,7 @@ class ProcessView: UIView {
 
         var next = false
         dispatch_async(dispatch_get_main_queue(), {
-          UIView.animateWithDuration(self.Duration, delay: 0, options: nil, animations: { () -> Void in
+          UIView.animateWithDuration(self.duration, delay: 0, options: nil, animations: { () -> Void in
             if self.isAnimating {
               self.addSubview(self.views[count])
               self.views[count].frame.origin = CGPoint(x: self.bounds.origin.x, y: 0)
@@ -62,6 +84,7 @@ class ProcessView: UIView {
           })
         })
 
+        // Let's wait until the current animation is done before moving forward
         while !next {
         }
         count++

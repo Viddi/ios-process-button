@@ -10,7 +10,7 @@ import UIKit
 
 class ProcessButton: FlatButton, FlatButtonDelegate {
   
-  let LineHeight: CGFloat = 5.0
+  let LineHeight: CGFloat = 4.0
 
   var processView: ProcessView!
 

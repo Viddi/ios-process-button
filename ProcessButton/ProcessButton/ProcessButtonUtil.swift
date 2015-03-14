@@ -36,4 +36,25 @@ class ProcessButtonUtil {
     return image
   }
   
+  var colors: [UIColor]?
+  var duration: NSTimeInterval?
+  
+  class var sharedInstance: ProcessButtonUtil {
+    struct Singleton {
+      static var instance: ProcessButtonUtil = ProcessButtonUtil()
+    }
+    
+    return Singleton.instance
+  }
+  
+  func setColors(colors: [UIColor]) -> ProcessButtonUtil {
+    self.colors = colors
+    return self
+  }
+  
+  func setDuration(duration: NSTimeInterval) -> ProcessButtonUtil {
+    self.duration = duration
+    return self
+  }
+  
 }

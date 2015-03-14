@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol FlatButtonDelegate {
+protocol FlatButtonDelegate {
   func showSuccess()
   func showError()
 }
@@ -74,11 +74,6 @@ class FlatButton: UIButton {
     }
   }
   
-  func setBackgroundColor(normalState: UIColor, highlightedState: UIColor) {
-    backgroundColor = normalState
-    setBackgroundImage(ProcessButtonUtil.imageWithColor(highlightedState), forState: UIControlState.Highlighted)
-  }
-
   func showSuccessText(text: String, seconds: Double) {
     showSuccess(text, seconds: seconds)
   }
@@ -94,4 +89,10 @@ class FlatButton: UIButton {
   func showErrorText(text: String) {
     showError(text, seconds: ProcessButtonUtil.Length.Long)
   }
+  
+  func setBackgroundColor(normalState: UIColor, highlightedState: UIColor) {
+    backgroundColor = normalState
+    setBackgroundImage(ProcessButtonUtil.imageWithColor(highlightedState), forState: UIControlState.Highlighted)
+  }
+  
 }
